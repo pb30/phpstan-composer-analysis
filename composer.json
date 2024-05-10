@@ -1,0 +1,44 @@
+{
+    "name": "pb30/phpstan-composer-analysis",
+    "license": "MIT",
+    "type": "phpstan-extension",
+    "require": {
+        "php": "~8.1|~8.2|~8.3",
+        "phpstan/phpstan": "^1.10",
+        "shipmonk/composer-dependency-analyser": "1.5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "ComposerAnalyzer\\": "src/"
+        }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.15"
+    },
+    "scripts": {
+        "cs-fix": "./vendor/bin/pint",
+        "phpstan": "./vendor/bin/phpstan --memory-limit=1G analyze",
+        "analyze": [
+            "@cs-fix",
+            "@phpstan"
+        ],
+        "quality": [
+            "@cs-fix",
+            "@phpstan"
+        ],
+        "lint": "@quality"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
+    }
+}

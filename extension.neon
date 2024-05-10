@@ -1,0 +1,10 @@
+services:
+    -
+        class: ComposerAnalyzer\ComposerCollector
+        arguments:
+            cwd: %currentWorkingDirectory%
+        tags:
+            - phpstan.collector
+
+rules:
+    - ComposerAnalyzer\ComposerRule

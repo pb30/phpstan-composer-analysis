@@ -1,0 +1,8 @@
+includes:
+    - extension.neon
+
+parameters:
+    level: 8
+    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - src
