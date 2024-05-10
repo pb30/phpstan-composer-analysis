@@ -2,6 +2,7 @@
     "name": "pb30/phpstan-composer-analysis",
     "license": "MIT",
     "type": "phpstan-extension",
+    "keywords": ["dev", "static analysis"],
     "require": {
         "php": "~8.1|~8.2|~8.3",
         "phpstan/phpstan": "^1.10",

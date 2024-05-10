@@ -7,7 +7,13 @@ This is a proof of concept PHPStan Extension for [shipmonk/composer-dependency-a
 
 This allows you to use `composer-dependency-analyser` without adding additional steps in your CI pipeline.
 
-Issues are reported as standard PHPStan errors, and can be ignored using [standard PHPStan `ignoreErrors` configuration](https://phpstan.org/user-guide/ignoring-errors#ignoring-in-configuration-file).
+## Installation
+
+1. `composer require --dev pb30/phpstan-composer-analysis`
+2. Add the following to your `phpstan.neon` includes: `- vendor/pb30/phpstan-composer-analysis/extension.neon` 
+
+## Usage
+Composer dependency issues are reported as standard PHPStan errors. They can be ignored using [standard PHPStan `ignoreErrors` configuration](https://phpstan.org/user-guide/ignoring-errors#ignoring-in-configuration-file).
 
 ```
  ------ ---------------------------------------------------------------------
