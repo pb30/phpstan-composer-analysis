@@ -40,5 +40,22 @@ Composer dependency issues are reported as standard PHPStan errors. They can be 
  ------ ---------------------------------------------------------------------------------
 ```
 
-## Todos:
-* Allow configuring `composer-dependency-analyser` through `phpstan.neon` to reduce number of tool configuration files a project may need
+## Configuration
+
+Several settings for `composer-dependency-analyser` can be configured in `phpstan.neon`:
+
+```neon
+parameters:
+    composerAnalysis:
+        additionalProdPath:
+            - config
+            - routes
+        additionalDevPaths:
+            - database/seeders
+        ignoreAllShadowDeps: false
+        ignoreAllDevDepsInProd: false
+        ignoreAllProdDepsInDev: false
+        ignoreAllUnusedDeps: false
+        ignoreSpecificUnusedDeps:
+            - laravel/tinker
+```

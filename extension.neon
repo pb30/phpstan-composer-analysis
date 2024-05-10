@@ -3,8 +3,30 @@ services:
         class: ComposerAnalyzer\ComposerCollector
         arguments:
             cwd: %currentWorkingDirectory%
+            options: %composerAnalysis%
         tags:
             - phpstan.collector
 
 rules:
     - ComposerAnalyzer\ComposerRule
+
+parameters:
+    composerAnalysis:
+        additionalProdPaths: []
+        additionalDevPaths: []
+        ignoreAllShadowDeps: false
+        ignoreAllDevDepsInProd: false
+        ignoreAllProdDepsInDev: false
+        ignoreAllUnusedDeps: false
+        ignoreSpecificUnusedDeps: []
+
+parametersSchema:
+    composerAnalysis: structure([
+        additionalProdPaths: listOf(string())
+        additionalDevPaths: listOf(string())
+        ignoreAllShadowDeps: bool()
+        ignoreAllDevDepsInProd: bool()
+        ignoreAllProdDepsInDev: bool()
+        ignoreAllUnusedDeps: bool()
+        ignoreSpecificUnusedDeps: listOf(string())
+    ])
