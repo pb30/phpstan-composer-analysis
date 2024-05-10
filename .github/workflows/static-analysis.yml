@@ -1,0 +1,38 @@
+name: static analysis
+
+on:
+  push:
+    branches:
+      - main
+      - '*.x'
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [ 8.3, 8.2, 8.1 ]
+
+    name: P${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, pdo_pgsql, bcmath, soap, intl, exif, iconv
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --no-interaction
+
+      - name: Run static analysis
+        uses: php-actions/phpstan@v3
+        with:
+          php_version: ${{ matrix.php }}
+          memory_limit: 1G
