@@ -118,23 +118,27 @@ class ComposerCollector implements Collector
             $this->buildErrors(
                 $results->getShadowDependencyErrors(),
                 'Shadow dependency detected',
-                'Class is used, but is not specified in composer.json'
+                'Class is used, but is not specified in composer.json',
+                'shadow'
             ),
             $this->buildErrors(
                 $results->getDevDependencyInProductionErrors(),
                 'Dev dependency used in production',
-                'This should probably be moved to "require" section in composer.json'
+                'This should probably be moved to "require" section in composer.json',
+                'devInProd'
             ),
             array_map(
                 fn ($error) => RuleErrorBuilder::message("Prod dependency used only in dev paths: {$error}")
                     ->file('composer.json')
                     ->tip('This should probably be moved to "require-dev" section in composer.json')
+                    ->identifier('composer.prodInDev')
                     ->build(),
                 $results->getProdDependencyOnlyInDevErrors()),
             array_map(
                 fn ($error) => RuleErrorBuilder::message("Unused dependency detected: {$error}")
                     ->file('composer.json')
                     ->tip('This is are listed in composer.json, but no usage was found in scanned paths')
+                    ->identifier('composer.unused')
                     ->build(),
                 $results->getUnusedDependencyErrors()),
         );
@@ -146,7 +150,7 @@ class ComposerCollector implements Collector
      *
      * @throws ShouldNotHappenException
      */
-    private function buildErrors(array $errors, string $message, string $tip): array
+    private function buildErrors(array $errors, string $message, string $tip, string $identifier): array
     {
         $ruleErrors = [];
         foreach ($errors as $composerPkg => $class) {
@@ -156,6 +160,7 @@ class ComposerCollector implements Collector
                         ->file($instance->getFilepath())
                         ->line($instance->getLineNumber())
                         ->tip($tip)
+                        ->identifier('composer.' . $identifier)
                         ->build();
                 }
             }
