@@ -160,7 +160,7 @@ class ComposerCollector implements Collector
                         ->file($instance->getFilepath())
                         ->line($instance->getLineNumber())
                         ->tip($tip)
-                        ->identifier('composer.' . $identifier)
+                        ->identifier('composer.'.$identifier)
                         ->build();
                 }
             }
