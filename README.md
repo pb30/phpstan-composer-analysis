@@ -1,9 +1,8 @@
 <h2 align="center">
-    ⚠️ This is proof of concept.<br/>
     PHPStan Wrapper for Composer Dependency Analysis
 </h2>
 
-This is a proof of concept PHPStan Extension for [shipmonk/composer-dependency-analyser](https://github.com/shipmonk-rnd/composer-dependency-analyser).
+This is a PHPStan Extension for [shipmonk/composer-dependency-analyser](https://github.com/shipmonk-rnd/composer-dependency-analyser).
 
 This allows you to use `composer-dependency-analyser` without adding additional steps in your CI pipeline.
 
@@ -13,7 +12,9 @@ This allows you to use `composer-dependency-analyser` without adding additional 
 2. Add the following to your `phpstan.neon` includes: `- vendor/pb30/phpstan-composer-analysis/extension.neon` 
 
 ## Usage
-Composer dependency issues are reported as standard PHPStan errors. They can be ignored using [standard PHPStan `ignoreErrors` configuration](https://phpstan.org/user-guide/ignoring-errors#ignoring-in-configuration-file).
+Composer dependency issues are reported as standard PHPStan errors.
+
+You can ignore any errors or false positives using the [standard PHPStan `ignoreErrors` configuration](https://phpstan.org/user-guide/ignoring-errors#ignoring-in-configuration-file) or through the settings below..
 
 ```
  ------ ---------------------------------------------------------------------
