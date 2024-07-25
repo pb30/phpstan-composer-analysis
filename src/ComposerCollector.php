@@ -66,7 +66,7 @@ class ComposerCollector implements Collector
         $stdOutPrinter = new Printer(STDOUT);
         $stdErrPrinter = new Printer(STDERR);
         $initializer = new ComposerInitializer($this->cwd, $stdOutPrinter, $stdErrPrinter);
-        $stopwatch = new Stopwatch();
+        $stopwatch = new Stopwatch;
         $options = $initializer->initCliOptions($this->cwd, []);
         $composerJson = $initializer->initComposerJson($options);
         $initializer->initComposerAutoloader($composerJson);
