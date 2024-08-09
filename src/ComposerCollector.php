@@ -63,23 +63,23 @@ class ComposerCollector implements Collector
     private function runComposerDependencyAnalyser(): AnalysisResult
     {
         // From vendor/shipmonk/composer-dependency-analyser/bin/composer-dependency-analyser
-        $stdOutPrinter = new Printer(STDOUT);
-        $stdErrPrinter = new Printer(STDERR);
-        $initializer = new ComposerInitializer($this->cwd, $stdOutPrinter, $stdErrPrinter);
+        $stdOutPrinter = new Printer(resource: STDOUT);
+        $stdErrPrinter = new Printer(resource: STDERR);
+        $initializer = new ComposerInitializer(cwd: $this->cwd, stdOutPrinter: $stdOutPrinter, stdErrPrinter: $stdErrPrinter);
         $stopwatch = new Stopwatch;
-        $options = $initializer->initCliOptions($this->cwd, []);
-        $composerJson = $initializer->initComposerJson($options);
-        $initializer->initComposerAutoloader($composerJson);
-        $configuration = $initializer->initConfiguration($options, $composerJson);
+        $options = $initializer->initCliOptions(cwd: $this->cwd, argv: []);
+        $composerJson = $initializer->initComposerJson(options: $options);
+        $initializer->initComposerAutoloader(composerJson: $composerJson);
+        $configuration = $initializer->initConfiguration(options: $options, composerJson: $composerJson);
 
         $configuration->ignoreErrors([ErrorType::UNKNOWN_CLASS, ErrorType::UNKNOWN_FUNCTION]);
 
         foreach ($this->additionalProdPaths as $path) {
-            $configuration->addPathToScan($path, false);
+            $configuration->addPathToScan(path: $path, isDev: false);
         }
 
         foreach ($this->additionalDevPaths as $path) {
-            $configuration->addPathToScan($path, true);
+            $configuration->addPathToScan(path: $path, isDev: true);
         }
 
         if ($this->ignoreAllShadowDeps) {
@@ -104,7 +104,13 @@ class ComposerCollector implements Collector
 
         $classLoaders = $initializer->initComposerClassLoaders();
 
-        return (new Analyser($stopwatch, $classLoaders, $configuration, $composerJson->dependencies))->run();
+        return (new Analyser(
+            stopwatch: $stopwatch,
+            defaultVendorDir: $composerJson->composerVendorDir,
+            classLoaders: $classLoaders,
+            config: $configuration,
+            composerJsonDependencies: $composerJson->dependencies
+        ))->run();
     }
 
     /**

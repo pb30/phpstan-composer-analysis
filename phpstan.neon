@@ -1,5 +1,19 @@
+includes:
+    - extension.neon
+
 parameters:
     level: 8
-    checkGenericClassInNonGenericObjectType: false
     paths:
         - src
+
+    ignoreErrors:
+        -
+            identifier: missingType.generics
+
+    composerAnalysis:
+        ignoreAllShadowDeps: false
+        ignoreAllDevDepsInProd: false
+        ignoreAllProdDepsInDev: false
+        ignoreAllUnusedDeps: false
+        ignoreSpecificUnusedDeps:
+            - phpstan/phpstan
