@@ -180,12 +180,9 @@ class ComposerCollector implements Collector
         return FileNode::class;
     }
 
-    /**
-     * @return RuleError[]
-     */
-    public function processNode(Node $node, Scope $scope): array
+    public function processNode(Node $node, Scope $scope)
     {
         // We're not actually processing nodes, we just are using a Collector have this run once per analyze run
-        return [];
+        return null;
     }
 }
