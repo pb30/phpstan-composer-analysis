@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\CollectedDataNode;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
 
 class ComposerRule implements Rule
 {
@@ -21,6 +22,9 @@ class ComposerRule implements Rule
         return CollectedDataNode::class;
     }
 
+    /**
+     * @return RuleError[]
+     */
     public function processNode(Node $node, Scope $scope): array
     {
         $errors = $this->depAnalyzer::$results;
