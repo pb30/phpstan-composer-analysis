@@ -37,6 +37,8 @@ class ComposerCollector implements Collector
 
     private bool $ignoreAllUnusedDeps = false;
 
+    private bool $disableExtensionsAnalysis = false;
+
     /** @var string[] */
     private array $ignoreSpecificUnusedDeps = [];
 
@@ -54,6 +56,7 @@ class ComposerCollector implements Collector
         $this->ignoreAllDevDepsInProd = boolval($options['ignoreAllDevDepsInProd'] ?? false);
         $this->ignoreAllProdDepsInDev = boolval($options['ignoreAllProdDepsInDev'] ?? false);
         $this->ignoreAllUnusedDeps = boolval($options['ignoreAllUnusedDeps'] ?? false);
+        $this->disableExtensionsAnalysis = boolval($options['disableExtensionsAnalysis'] ?? false);
         $this->ignoreSpecificUnusedDeps = $options['ignoreSpecificUnusedDeps'] ?? [];
 
         $results = $this->runComposerDependencyAnalyser();
@@ -63,8 +66,8 @@ class ComposerCollector implements Collector
     private function runComposerDependencyAnalyser(): AnalysisResult
     {
         // From vendor/shipmonk/composer-dependency-analyser/bin/composer-dependency-analyser
-        $stdOutPrinter = new Printer(resource: STDOUT);
-        $stdErrPrinter = new Printer(resource: STDERR);
+        $stdOutPrinter = new Printer(resource: STDOUT, noColor: true);
+        $stdErrPrinter = new Printer(resource: STDERR, noColor: true);
         $initializer = new ComposerInitializer(cwd: $this->cwd, stdOutPrinter: $stdOutPrinter, stdErrPrinter: $stdErrPrinter);
         $stopwatch = new Stopwatch;
         $options = $initializer->initCliOptions(cwd: $this->cwd, argv: []);
@@ -96,6 +99,11 @@ class ComposerCollector implements Collector
 
         if ($this->ignoreAllUnusedDeps) {
             $configuration->ignoreErrors([ErrorType::UNUSED_DEPENDENCY]);
+        }
+
+        if ($this->disableExtensionsAnalysis) {
+            echo 'disabled';
+            $configuration->disableExtensionsAnalysis();
         }
 
         foreach ($this->ignoreSpecificUnusedDeps as $packageName) {
