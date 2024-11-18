@@ -57,6 +57,7 @@ parameters:
         ignoreAllDevDepsInProd: false
         ignoreAllProdDepsInDev: false
         ignoreAllUnusedDeps: false
+        disableExtensionsAnalysis: false
         ignoreSpecificUnusedDeps:
             - laravel/tinker
 ```

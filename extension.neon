@@ -18,6 +18,7 @@ parameters:
         ignoreAllDevDepsInProd: false
         ignoreAllProdDepsInDev: false
         ignoreAllUnusedDeps: false
+        disableExtensionsAnalysis: false
         ignoreSpecificUnusedDeps: []
 
 parametersSchema:
@@ -28,5 +29,6 @@ parametersSchema:
         ignoreAllDevDepsInProd: bool()
         ignoreAllProdDepsInDev: bool()
         ignoreAllUnusedDeps: bool()
+        disableExtensionsAnalysis: bool()
         ignoreSpecificUnusedDeps: listOf(string())
     ])
