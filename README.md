@@ -2,6 +2,12 @@
     PHPStan Wrapper for Composer Dependency Analysis
 </h2>
 
+<p align="center">
+    <a href="https://packagist.org/packages/pb30/phpstan-composer-analysis"><img src="https://img.shields.io/packagist/v/pb30/phpstan-composer-analysis.svg" alt="Latest Version on Packagist"></a>
+    <a href="https://github.com/pb30/phpstan-composer-analysis/actions/workflows/static-analysis.yml"><img src="https://github.com/pb30/phpstan-composer-analysis/actions/workflows/static-analysis.yml/badge.svg" alt="static analysis"></a>
+    <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT Licensed"></a>
+</p>
+
 This is a PHPStan Extension for [shipmonk/composer-dependency-analyser](https://github.com/shipmonk-rnd/composer-dependency-analyser).
 
 This allows you to use `composer-dependency-analyser` without adding additional steps in your CI pipeline.
