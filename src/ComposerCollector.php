@@ -151,7 +151,7 @@ class ComposerCollector implements Collector
             array_map(
                 fn ($error) => RuleErrorBuilder::message("Unused dependency detected: {$error}")
                     ->file('composer.json')
-                    ->tip('This is are listed in composer.json, but no usage was found in scanned paths')
+                    ->tip('This is listed in composer.json, but no usage was found in scanned paths')
                     ->identifier('composer.unused')
                     ->build(),
                 $results->getUnusedDependencyErrors()),
