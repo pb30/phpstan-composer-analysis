@@ -102,7 +102,6 @@ class ComposerCollector implements Collector
         }
 
         if ($this->disableExtensionsAnalysis) {
-            echo 'disabled';
             $configuration->disableExtensionsAnalysis();
         }
 
