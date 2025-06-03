@@ -16,11 +16,8 @@ use ShipMonk\ComposerDependencyAnalyser\Result\AnalysisResult;
 use ShipMonk\ComposerDependencyAnalyser\Result\SymbolUsage;
 use ShipMonk\ComposerDependencyAnalyser\Stopwatch;
 
-class ComposerCollector implements Collector
+class ComposerCollector
 {
-    /** @var RuleError[] */
-    public static array $results;
-
     private string $cwd;
 
     /** @var string[] */
@@ -58,9 +55,14 @@ class ComposerCollector implements Collector
         $this->ignoreAllUnusedDeps = boolval($options['ignoreAllUnusedDeps'] ?? false);
         $this->disableExtensionsAnalysis = boolval($options['disableExtensionsAnalysis'] ?? false);
         $this->ignoreSpecificUnusedDeps = $options['ignoreSpecificUnusedDeps'] ?? [];
+    }
 
+    /**
+     * @return RuleError[]
+     */
+    public function analyze(): array {
         $results = $this->runComposerDependencyAnalyser();
-        self::$results = $this->reformatResults($results);
+        return $this->reformatResults($results);
     }
 
     private function runComposerDependencyAnalyser(): AnalysisResult
