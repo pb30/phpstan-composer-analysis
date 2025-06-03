@@ -60,8 +60,10 @@ class ComposerCollector
     /**
      * @return RuleError[]
      */
-    public function analyze(): array {
+    public function analyze(): array
+    {
         $results = $this->runComposerDependencyAnalyser();
+
         return $this->reformatResults($results);
     }
 

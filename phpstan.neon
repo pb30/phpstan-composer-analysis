@@ -6,10 +6,6 @@ parameters:
     paths:
         - src
 
-    ignoreErrors:
-        -
-            identifier: missingType.generics
-
     composerAnalysis:
         ignoreAllShadowDeps: false
         ignoreAllDevDepsInProd: false
