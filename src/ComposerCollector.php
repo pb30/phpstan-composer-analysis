@@ -76,7 +76,7 @@ class ComposerCollector implements Collector
         $composerJson = $initializer->initComposerJson(options: $options);
         $initializer->initComposerAutoloader(composerJson: $composerJson);
         $configuration = $initializer->initConfiguration(options: $options, composerJson: $composerJson);
-        $this->composerJsonPath = dirname($composerJson->composerVendorDir) .'/composer.json';
+        $this->composerJsonPath = dirname($composerJson->composerVendorDir).'/composer.json';
 
         $configuration->ignoreErrors([ErrorType::UNKNOWN_CLASS, ErrorType::UNKNOWN_FUNCTION]);
 
