@@ -8,6 +8,9 @@ use PHPStan\Node\CollectedDataNode;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 
+/**
+ * @implements Rule<CollectedDataNode>
+ */
 class ComposerRule implements Rule
 {
     private ComposerCollector $depAnalyzer;
@@ -19,6 +22,8 @@ class ComposerRule implements Rule
 
     public function getNodeType(): string
     {
+        // use collector rule, to make sure we run the underlying analyzer only once
+        // see https://github.com/pb30/phpstan-composer-analysis/issues/10
         return CollectedDataNode::class;
     }
 
@@ -27,9 +32,10 @@ class ComposerRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        $errors = $this->depAnalyzer::$results;
-        $this->depAnalyzer::$results = [];
+        if ($node->isOnlyFilesAnalysis()) {
+            return [];
+        }
 
-        return $errors;
+        return $this->depAnalyzer->analyze();
     }
 }

@@ -4,8 +4,6 @@ services:
         arguments:
             cwd: %currentWorkingDirectory%
             options: %composerAnalysis%
-        tags:
-            - phpstan.collector
 
 rules:
     - ComposerAnalyzer\ComposerRule
