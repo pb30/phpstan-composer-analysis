@@ -20,6 +20,8 @@ class ComposerCollector
 {
     private string $cwd;
 
+    private string $composerJsonPath;
+
     /** @var string[] */
     private array $additionalProdPaths = [];
 
@@ -78,6 +80,7 @@ class ComposerCollector
         $composerJson = $initializer->initComposerJson(options: $options);
         $initializer->initComposerAutoloader(composerJson: $composerJson);
         $configuration = $initializer->initConfiguration(options: $options, composerJson: $composerJson);
+        $this->composerJsonPath = dirname($composerJson->composerVendorDir).'/composer.json';
 
         $configuration->ignoreErrors([ErrorType::UNKNOWN_CLASS, ErrorType::UNKNOWN_FUNCTION]);
 
@@ -146,14 +149,14 @@ class ComposerCollector
             ),
             array_map(
                 fn ($error) => RuleErrorBuilder::message("Prod dependency used only in dev paths: {$error}")
-                    ->file('composer.json')
+                    ->file($this->composerJsonPath)
                     ->tip('This should probably be moved to "require-dev" section in composer.json')
                     ->identifier('composer.prodInDev')
                     ->build(),
                 $results->getProdDependencyOnlyInDevErrors()),
             array_map(
                 fn ($error) => RuleErrorBuilder::message("Unused dependency detected: {$error}")
-                    ->file('composer.json')
+                    ->file($this->composerJsonPath)
                     ->tip('This is listed in composer.json, but no usage was found in scanned paths')
                     ->identifier('composer.unused')
                     ->build(),
