@@ -54,7 +54,7 @@ Several settings for `composer-dependency-analyser` can be configured in `phpsta
 ```neon
 parameters:
     composerAnalysis:
-        additionalProdPath:
+        additionalProdPaths:
             - config
             - routes
         additionalDevPaths:
