@@ -72,8 +72,8 @@ class ComposerCollector
     private function runComposerDependencyAnalyser(): AnalysisResult
     {
         // From vendor/shipmonk/composer-dependency-analyser/bin/composer-dependency-analyser
-        $stdOutPrinter = new Printer(resource: STDOUT, noColor: true);
-        $stdErrPrinter = new Printer(resource: STDERR, noColor: true);
+        $stdOutPrinter = new Printer(STDOUT, true);
+        $stdErrPrinter = new Printer(STDERR, true);
         $initializer = new ComposerInitializer(cwd: $this->cwd, stdOutPrinter: $stdOutPrinter, stdErrPrinter: $stdErrPrinter);
         $stopwatch = new Stopwatch;
         $options = $initializer->initCliOptions(cwd: $this->cwd, argv: []);
