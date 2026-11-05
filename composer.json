@@ -5,7 +5,7 @@
     "keywords": ["dev", "static analysis"],
     "require": {
         "php": "~8.3|~8.4|~8.5",
-        "phpstan/phpstan": "^2.1.6",
+        "phpstan/phpstan": "^2.3.4",
         "shipmonk/composer-dependency-analyser": "1.8.4"
     },
     "autoload": {
